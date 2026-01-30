@@ -1,7 +1,9 @@
 package usermodule.usermodule.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import usermodule.usermodule.dto.LoginRequest;
 import usermodule.usermodule.dto.SignupRequest;
 import usermodule.usermodule.model.User;
 import usermodule.usermodule.model.UserRole;
@@ -10,18 +12,19 @@ import usermodule.usermodule.repository.UserRepository;
 import java.util.Locale;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserValidator userValidator;
 
     public String registerUser(SignupRequest signupRequest) {
-
         System.out.println("signup");
         System.out.println(signupRequest.toString());
 
-        validateSignupRequest(signupRequest);
+        userValidator.validateSignup(signupRequest);
 
+        // TODO: odvojiti u mapToUser(signupReq)
         User user = new User();
         user.setEmail(signupRequest.getEmail());
 
@@ -47,33 +50,22 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    private void validateSignupRequest(SignupRequest signupRequest) {
+    public String login(LoginRequest loginRequest) {
+        System.out.println(loginRequest.toString());
 
-        if(signupRequest.getEmail() == null || signupRequest.getEmail().isBlank()){
-            throw new IllegalArgumentException("Email is required");
+        userValidator.validateEmailFormat(loginRequest.getEmail());
+
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+
+        userValidator.validateUserStatus(user);
+
+        // TODO: dekriptovati password
+        if(!user.getPassword().equals(loginRequest.getPassword())){
+            throw new RuntimeException("Invalid email or password");
         }
 
-        if (emailExist(signupRequest.getEmail())) {
-            throw new RuntimeException("Email already in use");
-        }
-
-        if(!signupRequest.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")){
-            throw new IllegalArgumentException("Email format is invalid");
-        }
-
-        if(!signupRequest.getPassword().equals(signupRequest.getConfirmPassword())){
-            throw new IllegalArgumentException("Passwords do not match");
-        }
-
-        // TODO: POVECAJ JACINU LOZINKE NA 8
-        if(signupRequest.getPassword().length() < 2){
-            throw new RuntimeException("Password must be at least 8 characters long");
-        }
-    }
-
-
-    private boolean emailExist(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return "uspijesan login <3";
     }
 
 
