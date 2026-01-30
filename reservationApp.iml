@@ -5,7 +5,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="reservationApp" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -20,9 +22,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/client/dist" />
       <excludeFolder url="file://$MODULE_DIR$/client/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -144,5 +146,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-webmvc-test:4.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-web-server:4.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-resttestclient:4.0.2" level="project" />
+    <orderEntry type="module" module-name="userModule" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.42" level="project" />
   </component>
 </module>
