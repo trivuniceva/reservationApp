@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {SignupFormComponent} from "../../../components/auth/signup-form/signup-form.component";
-import {SignupRequest} from "../../../core/dto/signup-request.model";
-import {AuthService} from "../../../core/service/auth/auth.service";
+import {SignupRequest} from "../../../../core/dto/signup-request.model";
+import {AuthService} from "../../../../core/service/auth/auth.service";
 
 @Component({
   selector: 'app-signup-page',

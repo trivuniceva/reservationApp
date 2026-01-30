@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="header">
+    <h1>Welcome back</h1>
+    <p>Please enter your details.</p>
+  </div>
+
+  <app-login-form></app-login-form>
+
+  <p class="or-text">OR</p>
+
+  <div class="social-buttons">
+    <button class="btn btn-social">Google</button>
+    <button class="btn btn-social">Facebook</button>
+  </div>
+
+  <p (click)="forgotPassword()" class="link-text">Forgot password?</p>
+
+  <p class="signup-text">
+    Don't have an account? <strong (click)="goToSignup()" class="signup-link">Signup</strong>
+  </p>
+</div>
+
