@@ -1,0 +1,81 @@
+<div *ngIf="message" [ngClass]="'alert-' + message.type" class="alert-box">
+  {{ message.text }}
+</div>
+
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+  <div *ngIf="currentStep === 1" class="form-step">
+
+    <div class="form-group">
+      <input id="email" formControlName="email" type="email" placeholder="Email:" class="form-control">
+      <div *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.touched || signupForm.get('email')?.dirty)">
+        <small class="text-danger" *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</small>
+        <small class="text-danger" *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input id="password" formControlName="password" type="password" placeholder="Password:" class="form-control">
+
+      <div class="strength-wrapper">
+        <small [ngClass]="passwordStrength" class="strength-text">
+          {{ passwordStrengthMessage }}
+        </small>
+      </div>
+
+      <div *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.touched || signupForm.get('password')?.dirty)">
+        <small class="text-danger" *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
+        <small class="text-danger" *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm Password:" class="form-control">
+      <div *ngIf="signupForm.get('confirmPassword')?.invalid && (signupForm.get('confirmPassword')?.touched || signupForm.get('confirmPassword')?.dirty)">
+        <small class="text-danger" *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</small>
+      </div>
+      <small class="text-danger" *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched">
+        Passwords do not match.
+      </small>
+    </div>
+
+    <button type="button" (click)="goToStep(2)" class="btn btn-next">Next</button>
+  </div>
+
+  <div *ngIf="currentStep === 2" class="form-step">
+    <div class="form-group">
+      <input id="firstName" formControlName="firstName" type="text" placeholder="First Name:" class="form-control">
+      <div *ngIf="signupForm.get('firstName')?.invalid && (signupForm.get('firstName')?.touched || signupForm.get('firstName')?.dirty)">
+        <small class="text-danger" *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name:" class="form-control">
+      <div *ngIf="signupForm.get('lastName')?.invalid && (signupForm.get('lastName')?.touched || signupForm.get('lastName')?.dirty)">
+        <small class="text-danger" *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input id="phone" formControlName="phone" type="tel" placeholder="Phone Number:" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <input id="address" formControlName="address" type="text" placeholder="Address:" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <select id="userRole" formControlName="userRole" class="form-control">
+        <option value="GUEST">Guest</option>
+        <option value="HOST">Host</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button type="button" (click)="goToStep(1)" class="btn btn-back">Back</button>
+      <button type="submit" class="btn btn-submit">Submit</button>
+    </div>
+  </div>
+
+</form>
