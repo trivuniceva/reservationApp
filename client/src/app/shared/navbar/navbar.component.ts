@@ -33,8 +33,8 @@ export class NavbarComponent implements OnInit{
     } else {
       this.navItems = [
         {name: 'Home', route: '', iconUrl: 'assets/icons/profile.png'},
-        {name: 'Login', route: '', iconUrl: 'assets/icons/add.png'},
-        {name: 'Signup', route: '', iconUrl: 'assets/icons/logout.png'},
+        {name: 'Login', route: '/login', iconUrl: 'assets/icons/add.png'},
+        {name: 'Signup', route: '/signup', iconUrl: 'assets/icons/logout.png'},
       ]
     }
 
