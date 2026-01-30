@@ -1,0 +1,37 @@
+<div class="home-page">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Apartment Booking</h1>
+      <p>Find your perfect stay with the best apartments around the world.</p>
+      <button (click)="navigateToBooking()">Book Now</button>
+    </div>
+  </section>
+
+  <section class="featured-apartments">
+    <h2>Featured Apartments</h2>
+    <div class="apartments-grid">
+      <div class="apartment-card" *ngFor="let apartment of featuredApartments">
+        <img [src]="apartment.image" alt="Apartment Image">
+        <h3>{{ apartment.name }}</h3>
+        <p>{{ apartment.location }}</p>
+        <p>Price: {{ apartment.price | currency:'EUR' }}</p>
+        <button (click)="viewDetails(apartment.id)">View Details</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>Why Choose Us?</h2>
+    <p>We offer the best apartments with top-notch amenities to make your stay comfortable and enjoyable. From cozy city studios to luxurious beachside villas, we've got you covered.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Book?</h2>
+    <p>Explore our wide range of apartments and find the one that fits your needs.</p>
+    <button (click)="navigateToBooking()">Start Booking</button>
+  </section>
+
+</div>
+
+
+

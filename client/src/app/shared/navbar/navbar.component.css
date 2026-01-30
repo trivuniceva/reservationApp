@@ -1,0 +1,30 @@
+.navbar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  backdrop-filter: blur(15px);
+  padding: 20px 0;
+  margin: 0 auto;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.nav-green{
+  background-color: rgba(1, 94, 97, 0.7);
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 0 15px;
+  position: relative;
+}
+
+.nav-item:hover {
+  text-decoration: none;
+  color: #015E61;
+  text-decoration: none;
+}
+
