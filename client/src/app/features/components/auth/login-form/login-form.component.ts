@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {LoginRequest} from "../../../../core/dto/login-request.model";
 
 @Component({
   selector: 'app-login-form',
@@ -15,8 +16,19 @@ import {ReactiveFormsModule} from "@angular/forms";
 })
 export class LoginFormComponent {
 
+  loginForm: FormGroup;
+  @Output() onLogin = new EventEmitter<LoginRequest>();
+
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
 
   login() {
-
+    if (this.loginForm.valid) {
+      this.onLogin.emit(this.loginForm.value);
+    }
   }
 }
