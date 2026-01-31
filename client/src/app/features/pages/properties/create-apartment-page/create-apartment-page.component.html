@@ -1,1 +1,7 @@
-<p>create-apartment-page works!</p>
+<div class="page-wrapper">
+  <div class="header">
+    <h1>List a New Accommodation</h1>
+    <p>Fill in the details below to start hosting.</p>
+  </div>
+  <app-create-apartment-form (formSubmit)="handleCreate($event)"></app-create-apartment-form>
+</div>

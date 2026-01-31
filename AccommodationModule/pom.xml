@@ -8,11 +8,11 @@
         <version>4.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>reservationApp</groupId>
-    <artifactId>reservationApp</artifactId>
+    <groupId>AccommodationModule</groupId>
+    <artifactId>AccommodationModule</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>reservationApp</name>
-    <description>reservationApp</description>
+    <name>AccommodationModule</name>
+    <description>AccommodationModule</description>
     <url/>
     <licenses>
         <license/>
@@ -64,16 +64,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>userModule</groupId>
-            <artifactId>userModule</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>AccommodationModule</groupId>
-            <artifactId>AccommodationModule</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

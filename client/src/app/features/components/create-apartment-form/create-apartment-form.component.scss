@@ -1,0 +1,128 @@
+.form-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+  }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Dve kolone
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .span-2 {
+      grid-column: span 2; // Opis širimo preko obe kolone
+    }
+  }
+
+  .amenities-section {
+    margin: 2rem 0;
+
+    h4 {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        input {
+          cursor: pointer;
+          width: 18px;
+          height: 18px;
+        }
+
+        label {
+          cursor: pointer;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  .date-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 600;
+    }
+
+    input[type="date"] {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      outline: none;
+
+      &:focus {
+        border-color: #000;
+      }
+    }
+  }
+
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+  }
+}
+
+.image-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  button { background: #007bff; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; }
+}
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+
+  .preview-item {
+    position: relative;
+    height: 100px;
+    img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+    button {
+      position: absolute; top: -5px; right: -5px;
+      background: red; color: white; border: none; border-radius: 50%;
+      width: 20px; height: 20px; cursor: pointer; font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+
+    .span-2 {
+      grid-column: span 1;
+    }
+  }
+}
