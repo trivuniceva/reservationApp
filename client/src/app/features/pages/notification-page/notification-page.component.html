@@ -1,0 +1,24 @@
+<div class="notif-container">
+  <h2>Admin Notifications</h2>
+
+  <div class="notif-grid">
+    @for (notif of notifications; track notif.id) {
+    <div class="notif-card" (click)="selectNotification(notif)" [class.selected]="selectedNotif?.id === notif.id">
+      <div class="notif-icon">🔔</div>
+      <div class="notif-content">
+        <p>{{ notif.message }}</p>
+          <span class="date">{{ notif.createdAt | date:'short' }}</span>
+        </div>
+      </div>
+    } @empty {
+    <p>No new notifications. Everything is up to date!</p>
+    }
+  </div>
+
+  @if (selectedNotif) {
+  <app-notification
+    [notification]="selectedNotif"
+    (onActionFinished)="refreshList()">
+  </app-notification>
+  }
+</div>

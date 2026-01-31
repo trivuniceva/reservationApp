@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {AuthService} from "../../../core/service/auth/auth.service";
 import {User} from "../../../core/model/user.model";
 import {CommonModule, isPlatformBrowser, NgIf} from "@angular/common";
@@ -35,16 +35,18 @@ export class ProfilePageComponent implements OnInit{
 
   constructor(
     private authService: AuthService,
+    private cdref: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.user = this.authService.getUserInfo();
-
-      if (this.user) {
-        this.setTabsByRole(this.user.role);
-      }
+      setTimeout(() => {
+        this.user = this.authService.getUserInfo();
+        if (this.user) {
+          this.setTabsByRole(this.user.role);
+        }
+      });
     }
   }
 

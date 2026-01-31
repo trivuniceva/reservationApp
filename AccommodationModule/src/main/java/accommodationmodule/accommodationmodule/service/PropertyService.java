@@ -1,9 +1,11 @@
 package accommodationmodule.accommodationmodule.service;
 
+import accommodationmodule.accommodationmodule.dto.PropertyCreatedEvent;
 import accommodationmodule.accommodationmodule.model.Property;
 import accommodationmodule.accommodationmodule.repository.PropertyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,9 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
     @Transactional
     public Property saveProperty(Property property) {
         property.setApproved(false);
@@ -22,7 +27,17 @@ public class PropertyService {
             throw new IllegalArgumentException("Min guests cannot be greater than max guests");
         }
 
-        return propertyRepository.save(property);
+        Property savedProperty = propertyRepository.save(property);
+
+        PropertyCreatedEvent event = new PropertyCreatedEvent(
+                savedProperty.getId(),
+                savedProperty.getName()
+        );
+
+        eventPublisher.publishEvent(event);
+
+        return savedProperty;
+
     }
 
     public List<Property> getAllProperties() {

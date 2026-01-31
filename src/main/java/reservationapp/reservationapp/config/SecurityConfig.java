@@ -25,6 +25,8 @@ public class SecurityConfig {
                         .requestMatchers("/signup", "/login").permitAll()
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/api/properties/**").permitAll()
+                        .requestMatchers("/notifications/**").permitAll()
+
                         .anyRequest().authenticated()
                 );
 

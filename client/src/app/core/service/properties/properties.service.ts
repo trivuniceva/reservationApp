@@ -19,4 +19,8 @@ export class PropertiesService {
   getPropertiesByOwner(ownerId: number): Observable<Apartment[]> {
     return this.http.get<Apartment[]>(`${this.apiUrl}/owner/${ownerId}`);
   }
+
+  approveProperty(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/approve`, {});
+  }
 }

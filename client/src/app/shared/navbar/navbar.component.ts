@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {NavigationEnd, Router, RouterModule} from "@angular/router";
 import {User} from "../../core/model/user.model";
 import {AuthService} from "../../core/service/auth/auth.service";
+import {NotificationsService} from "../../core/service/notifications/notifications.service";
 
 @Component({
   selector: 'app-navbar',
@@ -18,8 +19,13 @@ export class NavbarComponent implements OnInit{
   navItems: {name: string, route: string, iconUrl: string}[] = [];
   user:User | null = null;
   isTransparent: boolean = true;
+  unreadCount: number = 0;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private notificationService: NotificationsService
+    ) {}
 
   ngOnInit() {
 
@@ -34,13 +40,17 @@ export class NavbarComponent implements OnInit{
       console.log('Navbar primio ulogu:', role);
       this.updateNavItems(role);
     });
+
+    this.notificationService.unreadCount$.subscribe(count => {
+      this.unreadCount = count;
+    });
   }
 
   updateNavItems(role: string) {
     if (role === 'ADMIN') {
       this.navItems = [
         { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
-        { name: 'Notifications', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Notifications', route: '/notification', iconUrl: 'icons/profile.png' },
         { name: 'Logout', route: '', iconUrl: '' }
       ];
     } else if (role === 'GUEST' ) {
