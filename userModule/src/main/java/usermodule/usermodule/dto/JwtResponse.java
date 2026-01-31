@@ -7,8 +7,9 @@ import usermodule.usermodule.model.UserRole;
 @Data
 @AllArgsConstructor
 public class JwtResponse {
+    private Long id;
     private String email;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private UserRole role;
 }

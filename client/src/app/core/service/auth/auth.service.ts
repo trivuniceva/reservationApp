@@ -37,9 +37,10 @@ export class AuthService {
       tap((response: any) => {
         if (response) {
           localStorage.setItem('user', JSON.stringify({
+            id: response.id,
             email: response.email,
-            firstname: response.firstname,
-            lastname: response.lastname,
+            firstName: response.firstName,
+            lastName: response.lastName,
             role: response.role
           }));
 
@@ -59,4 +60,12 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  getUserInfo() {
+    if (isPlatformBrowser(this.platformId)) {
+      const userJson = localStorage.getItem('user');
+      return userJson ? JSON.parse(userJson) : null;
+    }
+
+    return null;
+  }
 }

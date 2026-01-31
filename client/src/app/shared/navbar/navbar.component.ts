@@ -40,16 +40,19 @@ export class NavbarComponent implements OnInit{
     if (role === 'ADMIN') {
       this.navItems = [
         { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Notifications', route: '/profile', iconUrl: 'icons/profile.png' },
         { name: 'Logout', route: '', iconUrl: '' }
       ];
     } else if (role === 'GUEST' ) {
       this.navItems = [
         { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Notifications', route: '/profile', iconUrl: 'icons/profile.png' },
         { name: 'Logout', route: '', iconUrl: '' }
       ];
     } else if (role === 'HOST') {
       this.navItems = [
         { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Notifications', route: '/profile', iconUrl: 'icons/profile.png' },
         { name: 'Logout', route: '', iconUrl: '' }
       ];
     } else {
