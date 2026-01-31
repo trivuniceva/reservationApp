@@ -22,7 +22,7 @@ export class LoginPageComponent {
       next: (response) => {
         console.log('Login uspešan:', response);
         alert('Welcome back!');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile']);
       },
       error: (err) => {
         console.error('Login greška:', err);

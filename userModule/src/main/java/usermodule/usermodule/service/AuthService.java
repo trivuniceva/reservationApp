@@ -3,6 +3,7 @@ package usermodule.usermodule.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import usermodule.usermodule.dto.JwtResponse;
 import usermodule.usermodule.dto.LoginRequest;
 import usermodule.usermodule.dto.SignupRequest;
 import usermodule.usermodule.model.User;
@@ -50,7 +51,7 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    public String login(LoginRequest loginRequest) {
+    public JwtResponse login(LoginRequest loginRequest) {
         System.out.println(loginRequest.toString());
 
         userValidator.validateEmailFormat(loginRequest.getEmail());
@@ -65,7 +66,12 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
 
-        return "uspijesan login <3";
+        return new JwtResponse(
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUserRole()
+        );
     }
 
 
