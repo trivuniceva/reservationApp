@@ -37,9 +37,4 @@ export class AuthService {
     );
   }
 
-  getLoggedUser(){
-    const user = localStorage.getItem('loggedUser');
-    return user ? JSON.parse(user) : null;
-  }
-
 }

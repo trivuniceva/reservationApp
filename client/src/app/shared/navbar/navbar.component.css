@@ -3,16 +3,19 @@
   display: flex;
   justify-content: center;
   width: 95%;
+  background-color: #015E61;
   backdrop-filter: blur(15px);
   padding: 20px 0;
-  margin: 0 auto;
+  margin: 10px auto;
   border-radius: 10px;
-  z-index: 1;
+  z-index: 10;
+  transition: background-color 0.3s ease;
 }
 
-.nav-green{
-  background-color: rgba(1, 94, 97, 0.7);
+.navbar.transparent {
+  background-color: transparent;
 }
+
 
 .nav-item {
   color: white;
@@ -24,7 +27,7 @@
 
 .nav-item:hover {
   text-decoration: none;
-  color: #015E61;
+  color: #a0d2d3;
   text-decoration: none;
 }
 

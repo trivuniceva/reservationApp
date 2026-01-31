@@ -25,13 +25,19 @@ export class AppComponent {
   ngOnInit(): void {
     this.authService.userRole$.subscribe((role) => {
       this.userRole = role;
-      console.log("this.userRole")
-      console.log(this.userRole)
     });
+
+    const checkVideoVisibility = (url: string) => {
+      const videoRoutes = ['/', '/login', '/signup', ''];
+      const currentRoute = url.split('?')[0];
+      this.isVideoVisible = videoRoutes.includes(currentRoute);
+    };
+
+    checkVideoVisibility(this.router.url);
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isVideoVisible = event.url !== '/search-apartment' && event.url !== '/detailed-view';
+        checkVideoVisibility(event.urlAfterRedirects || event.url);
       }
     });
   }

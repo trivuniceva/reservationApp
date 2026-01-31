@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar" [class.transparent]="isTransparent">
   <a *ngFor="let item of navItems"
      class="nav-item"
      [routerLink]="item.route"
