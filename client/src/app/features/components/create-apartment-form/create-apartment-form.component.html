@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2>Apartment Details</h2>
+
+  <div class="grid-layout">
+    <app-input placeholder="Property Name" [(value)]="apartmentData.name"></app-input>
+    <app-input placeholder="Location" [(value)]="apartmentData.location"></app-input>
+    <app-input placeholder="Type" [(value)]="apartmentData.type"></app-input>
+
+    <div class="span-2">
+      <app-input placeholder="Description" [(value)]="apartmentData.description"></app-input>
+    </div>
+
+    <app-input type="number" [min]="1" placeholder="Min Guests" [(value)]="apartmentData.minGuests"></app-input>
+    <app-input type="number" [min]="1" placeholder="Max Guests" [(value)]="apartmentData.maxGuests"></app-input>
+    <app-input type="number" [min]="0" placeholder="Price per night ($)" [(value)]="apartmentData.price"></app-input>
+
+    <div class="date-section">
+      <label>Availability From:</label>
+      <input type="date" (change)="apartmentData.availableFrom = $any($event.target).value">
+    </div>
+  </div>
+
+  <div class="amenities-section">
+    <h4>Amenities</h4>
+    <div class="checkbox-group">
+      <div *ngFor="let item of availableAmenities" class="checkbox-item">
+        <input type="checkbox" [id]="item" (change)="toggleAmenity(item)">
+        <label [for]="item">{{item}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <label>Property Images</label>
+
+    <div class="upload-container">
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        multiple
+        accept="image/*"
+        style="display: none;"
+      >
+
+      <button type="button" class="upload-btn" (click)="fileInput.click()">
+        + Select Images from Computer
+      </button>
+    </div>
+
+    <div class="image-preview-grid" *ngIf="apartmentData.images.length > 0">
+      <div *ngFor="let img of apartmentData.images; let i = index" class="preview-item">
+        <img [src]="img" alt="Preview">
+        <button type="button" class="delete-img" (click)="removeImage(i)">×</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-footer">
+    <app-button message="Create Apartment" (clicked)="onSubmit()"></app-button>
+  </div>
+</div>

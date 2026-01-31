@@ -1,0 +1,43 @@
+<div class="properties-container">
+  <h2>My Properties</h2>
+
+  @if (isLoading) {
+  <div class="loader">Loading your amazing places...</div>
+  } @else if (userProperties.length === 0) {
+  <div class="no-data">
+    <p>You haven't listed any properties yet.</p>
+    <button routerLink="/create-property">List Your First Accommodation</button>
+  </div>
+  } @else {
+  <div class="properties-grid">
+    @for (prop of userProperties; track prop.id) {
+  <div class="property-card">
+    <div class="status-badge" [class.approved]="prop.approved">
+      {{ prop.approved ? 'Live' : 'Pending Approval' }}
+    </div>
+
+    <div class="property-image">
+      @if (prop.images && prop.images.length > 0) {
+      <img [src]="prop.images[0]" alt="{{ prop.name }}">
+      } @else {
+      <div class="no-image">No Image Available</div>
+      }
+    </div>
+
+    <div class="property-info">
+      <h3>{{ prop.name }}</h3>
+      <p class="location">📍 {{ prop.location }}</p>
+      <p class="type-tag">{{ prop.type }}</p>
+      <p class="price"><strong>{{ prop.price }}€</strong> / night</p>
+
+      <div class="amenities">
+        @for (amenity of prop.amenities; track $index) {
+        <span class="tag">{{ amenity }}</span>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  </div>
+  }
+</div>

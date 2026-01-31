@@ -6,7 +6,12 @@
        [routerLink]="item.route"
        routerLinkActive="active"
        [routerLinkActiveOptions]="{ exact: true }">
+
       <span>{{ item.name }}</span>
+
+      <span *ngIf="item.name === 'Notifications' && unreadCount > 0" class="notification-badge">
+        {{ unreadCount }}
+      </span>
     </a>
 
     <a *ngIf="item.name === 'Logout'"

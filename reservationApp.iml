@@ -148,5 +148,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-resttestclient:4.0.2" level="project" />
     <orderEntry type="module" module-name="userModule" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.42" level="project" />
+    <orderEntry type="module" module-name="AccommodationModule" />
+    <orderEntry type="module" module-name="Notifications" />
   </component>
 </module>

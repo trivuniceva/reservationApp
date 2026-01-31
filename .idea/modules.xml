@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AccommodationModule/AccommodationModule.iml" filepath="$PROJECT_DIR$/AccommodationModule/AccommodationModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Notifications/Notifications.iml" filepath="$PROJECT_DIR$/Notifications/Notifications.iml" />
       <module fileurl="file://$PROJECT_DIR$/reservationApp.iml" filepath="$PROJECT_DIR$/reservationApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/userModule/userModule.iml" filepath="$PROJECT_DIR$/userModule/userModule.iml" />
     </modules>
