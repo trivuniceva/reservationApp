@@ -67,6 +67,7 @@ public class AuthService {
         }
 
         return new JwtResponse(
+                user.getId(),
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),

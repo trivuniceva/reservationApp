@@ -37,6 +37,7 @@ export class AuthService {
       tap((response: any) => {
         if (response) {
           localStorage.setItem('user', JSON.stringify({
+            id: response.id,
             email: response.email,
             firstName: response.firstName,
             lastName: response.lastName,
