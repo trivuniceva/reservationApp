@@ -30,24 +30,40 @@ export class NavbarComponent implements OnInit{
       }
     });
 
-    if(this.user?.role === 'ADMIN'){
+    this.authService.userRole$.subscribe(role => {
+      console.log('Navbar primio ulogu:', role);
+      this.updateNavItems(role);
+    });
+  }
+
+  updateNavItems(role: string) {
+    if (role === 'ADMIN') {
       this.navItems = [
-        {name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png'},
-        {name: 'Logout', route: '/profile', iconUrl: ''},
-      ]
-    } else if (this.user?.role === 'REGULAR_USER') {
+        { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Logout', route: '', iconUrl: '' }
+      ];
+    } else if (role === 'GUEST' ) {
       this.navItems = [
-        {name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png'},
-        {name: 'Logout', route: '/profile', iconUrl: ''},
-      ]
+        { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Logout', route: '', iconUrl: '' }
+      ];
+    } else if (role === 'HOST') {
+      this.navItems = [
+        { name: 'Profile', route: '/profile', iconUrl: 'icons/profile.png' },
+        { name: 'Logout', route: '', iconUrl: '' }
+      ];
     } else {
       this.navItems = [
-        {name: 'Home', route: '', iconUrl: 'assets/icons/profile.png'},
-        {name: 'Login', route: '/login', iconUrl: 'assets/icons/add.png'},
-        {name: 'Signup', route: '/signup', iconUrl: 'assets/icons/logout.png'},
-      ]
+        { name: 'Home', route: '', iconUrl: 'assets/icons/profile.png' },
+        { name: 'Login', route: '/login', iconUrl: 'assets/icons/add.png' },
+        { name: 'Signup', route: '/signup', iconUrl: 'assets/icons/logout.png' }
+      ];
     }
 
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
 }

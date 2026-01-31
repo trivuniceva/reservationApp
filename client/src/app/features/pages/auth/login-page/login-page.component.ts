@@ -21,7 +21,6 @@ export class LoginPageComponent {
     this.authService.login(data).subscribe({
       next: (response) => {
         console.log('Login uspešan:', response);
-        alert('Welcome back!');
         this.router.navigate(['/profile']);
       },
       error: (err) => {
