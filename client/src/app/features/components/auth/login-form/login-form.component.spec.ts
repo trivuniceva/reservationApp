@@ -35,4 +35,13 @@ describe('LoginFormComponent', () => {
 
     expect(component.onLogin.emit).toHaveBeenCalledWith(loginData);
   });
+
+  it('should not emit login data if form is invalid', () => {
+    spyOn(component.onLogin, 'emit');
+
+    component.loginForm.setValue({ email: 'not-an-email', password: '' });
+    component.login();
+
+    expect(component.onLogin.emit).not.toHaveBeenCalled();
+  });
 });
