@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupFormComponent } from './signup-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {SignupRequest} from "../../../core/dto/signup-request.model";
+import {SignupRequest} from "../../../../core/dto/signup-request.model";
 
 describe('SignupFormComponent', () => {
   let component: SignupFormComponent;

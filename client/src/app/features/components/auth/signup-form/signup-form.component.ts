@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {SignupRequest} from "../../../core/dto/signup-request.model";
+import {SignupRequest} from "../../../../core/dto/signup-request.model";
 
 @Component({
   selector: 'app-signup-form',

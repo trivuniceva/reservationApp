@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import usermodule.usermodule.dto.ApiResponse;
+import usermodule.usermodule.dto.LoginRequest;
 import usermodule.usermodule.dto.SignupRequest;
 import usermodule.usermodule.service.AuthService;
 
@@ -21,6 +22,12 @@ public class AuthController {
         String message = authService.registerUser(signupRequest);
         return ResponseEntity.ok(new ApiResponse(message));
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        System.out.println("login <3");
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 
 
