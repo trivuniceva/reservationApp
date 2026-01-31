@@ -5,6 +5,8 @@ import {CommonModule, isPlatformBrowser, NgIf} from "@angular/common";
 import {EntityHeaderComponent} from "../../../shared/ui/entity-header/entity-header.component";
 import {TabsComponent} from "../../../shared/ui/tabs/tabs.component";
 import {EditProfileComponent} from "../../components/edit-profile/edit-profile.component";
+import {PropertiesPageComponent} from "../properties/properties-page/properties-page.component";
+import {CreateApartmentPageComponent} from "../properties/create-apartment-page/create-apartment-page.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -15,6 +17,8 @@ import {EditProfileComponent} from "../../components/edit-profile/edit-profile.c
     TabsComponent,
     EditProfileComponent,
     EntityHeaderComponent,
+    PropertiesPageComponent,
+    CreateApartmentPageComponent,
 
   ],
   templateUrl: './profile-page.component.html',
@@ -24,8 +28,8 @@ export class ProfilePageComponent implements OnInit{
   user: User | null = null;
   showEditPopup = false;
 
-  activeTab = 'Reservation';
-  tabs = ['Reservation', 'Make Reservation', 'History'];
+  activeTab = '';
+  tabs: string[] = [];
 
   hideSidebar = false;
 
@@ -37,9 +41,24 @@ export class ProfilePageComponent implements OnInit{
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.user = this.authService.getUserInfo();
-      console.log('Podaci o korisniku na profilu:', this.user);
-    }
 
+      if (this.user) {
+        this.setTabsByRole(this.user.role);
+      }
+    }
+  }
+
+  private setTabsByRole(role: string) {
+    if (role === 'GUEST') {
+      this.tabs = ['Reservation', 'Make Reservation', 'History'];
+      this.activeTab = 'Reservation';
+    } else if (role === 'HOST') {
+      this.tabs = ['Create Apartment', 'My Properties', 'Bookings', 'Income', 'Analytics'];
+      this.activeTab = 'Create Apartment';
+    } else if (role === 'ADMIN') {
+      this.tabs = ['Users Overview', 'Quick Actions', 'System Logs'];
+      this.activeTab = 'Users Overview';
+    }
   }
 
   onTabChange(tab: string) {

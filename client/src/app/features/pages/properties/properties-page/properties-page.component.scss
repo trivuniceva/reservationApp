@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.page-container {
+  display: flex;
+  flex-wrap: wrap;
+  //gap: 2rem;
+}
