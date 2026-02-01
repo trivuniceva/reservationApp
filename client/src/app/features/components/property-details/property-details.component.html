@@ -1,0 +1,25 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="onClose()">&times;</button>
+
+    <div class="modal-body">
+      <div class="modal-gallery">
+        <img *ngFor="let img of property.images" [src]="img" alt="Gallery">
+      </div>
+
+      <div class="modal-details">
+        <h1>{{ property.name }}</h1>
+        <p class="modal-location">📍 {{ property.location }}</p>
+        <hr>
+        <p class="modal-description">{{ property.description }}</p>
+        <div class="modal-amenities">
+          <span class="tag" *ngFor="let a of property.amenities">{{ a }}</span>
+        </div>
+        <div class="modal-footer">
+          <span class="modal-price">{{ property.price }}€ / night</span>
+          <button class="btn-action">Edit Property</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
