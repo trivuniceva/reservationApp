@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from "@angular/common";
-import {Apartment} from "../../../../core/model/apartment.model";
-import {PropertiesService} from "../../../../core/service/properties/properties.service";
-import {AuthService} from "../../../../core/service/auth/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Apartment } from "../../../../core/model/apartment.model";
+import { PropertiesService } from "../../../../core/service/properties/properties.service";
+import { AuthService } from "../../../../core/service/auth/auth.service";
+import {PropertyDetailsComponent} from "../../../components/property-details/property-details.component";
 
 @Component({
   selector: 'app-properties-page',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    PropertyDetailsComponent
   ],
   templateUrl: './properties-page.component.html',
   styleUrl: './properties-page.component.scss'
@@ -16,6 +18,7 @@ import {AuthService} from "../../../../core/service/auth/auth.service";
 export class PropertiesPageComponent implements OnInit {
   userProperties: Apartment[] = [];
   isLoading: boolean = true;
+  selectedProperty: Apartment | null = null;
 
   constructor(
     private propertiesService: PropertiesService,
@@ -34,11 +37,18 @@ export class PropertiesPageComponent implements OnInit {
           this.userProperties = data;
           this.isLoading = false;
         },
-        error: (err) => {
-          console.error('Greška pri učitavanju smeštaja:', err);
-          this.isLoading = false;
-        }
+        error: () => this.isLoading = false
       });
     }
+  }
+
+  openDetails(prop: Apartment) {
+    this.selectedProperty = prop;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeDetails() {
+    this.selectedProperty = null;
+    document.body.style.overflow = 'auto';
   }
 }
