@@ -2,24 +2,32 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="onClose()">&times;</button>
 
-    <div class="modal-body">
-      <div class="modal-gallery">
-        <img *ngFor="let img of property.images" [src]="img" alt="Gallery">
+    <div class="container">
+      <div class="left-section">
+        <app-apartment-images [images]="property.images"></app-apartment-images>
+        <app-apartment-details [description]="property.description"></app-apartment-details>
       </div>
 
-      <div class="modal-details">
-        <h1>{{ property.name }}</h1>
-        <p class="modal-location">📍 {{ property.location }}</p>
-        <hr>
-        <p class="modal-description">{{ property.description }}</p>
-        <div class="modal-amenities">
-          <span class="tag" *ngFor="let a of property.amenities">{{ a }}</span>
+      <div class="middle-section">
+        <app-apartment-info [property]="property"></app-apartment-info>
+      </div>
+
+      <div class="right-section">
+        <div class="map-container">
+          <app-map-section [apartment]="property"></app-map-section>
         </div>
-        <div class="modal-footer">
-          <span class="modal-price">{{ property.price }}€ / night</span>
-          <button class="btn-action">Edit Property</button>
+        <div class="amenities-info">
+          <app-amenities-info [amenities]="property.amenities"></app-amenities-info>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="userRole === 'GUEST'">
+      <button class="reserve-button" (click)="reserve()">Reserve</button>
+    </div>
+
+    <div *ngIf="userRole === 'HOST' || userRole === 'ADMIN'">
+      <button class="reserve-button" (click)="edit()">Edit Property</button>
     </div>
   </div>
 </div>

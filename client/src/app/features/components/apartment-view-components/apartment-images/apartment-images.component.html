@@ -1,0 +1,17 @@
+<div class="gallery-wrapper">
+  <div class="main-image-container">
+    <img [src]="activeImage" alt="Main view" class="main-image">
+    <div class="image-overlay"></div>
+  </div>
+
+  <div class="thumbnails-container">
+    <div
+      class="thumb-item"
+      *ngFor="let img of images"
+      (click)="selectImage(img)"
+      [class.active]="img === activeImage"
+    >
+      <img [src]="img" alt="Thumbnail">
+    </div>
+  </div>
+</div>
