@@ -13,4 +13,6 @@ export interface Apartment {
   availableTo: Date;
   approved?: boolean;
   ownerId?: number;
+  status: 'PENDING' | 'APPROVED';
+  autoConfirm: boolean;
 }

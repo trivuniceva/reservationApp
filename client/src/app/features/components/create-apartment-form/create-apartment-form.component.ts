@@ -32,6 +32,8 @@ export class CreateApartmentFormComponent {
     price: null as any,
     availableFrom: new Date(),
     availableTo: new Date(),
+    autoConfirm: false,
+    status: 'PENDING'
   };
 
   availableAmenities = ['WiFi', 'Kitchen', 'AC', 'Free Parking', 'Pool', 'TV'];

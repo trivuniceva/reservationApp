@@ -23,4 +23,8 @@ export class PropertiesService {
   approveProperty(id: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}/approve`, {});
   }
+
+  updateProperty(id: number | undefined, editableProperty: Apartment): Observable<Apartment> {
+    return this.http.put<Apartment>(`${this.apiUrl}/${id}`, editableProperty);
+  }
 }
