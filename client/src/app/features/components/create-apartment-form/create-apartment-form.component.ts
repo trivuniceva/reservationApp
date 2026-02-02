@@ -33,7 +33,11 @@ export class CreateApartmentFormComponent {
     availableFrom: new Date(),
     availableTo: new Date(),
     autoConfirm: false,
-    status: 'PENDING'
+    status: 'PENDING',
+    pricingStrategy: 'PER_UNIT',
+    cancellationDeadline: 0,
+    specialPrices: [],
+    availability: []
   };
 
   availableAmenities = ['WiFi', 'Kitchen', 'AC', 'Free Parking', 'Pool', 'TV'];

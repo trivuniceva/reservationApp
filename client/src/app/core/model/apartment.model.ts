@@ -1,3 +1,14 @@
+export interface SpecialPrice {
+  startDate: Date;
+  endDate: Date;
+  price: number;
+}
+
+export interface AvailabilityInterval {
+  startDate: Date;
+  endDate: Date;
+}
+
 export interface Apartment {
   id?: number;
   name: string;
@@ -15,4 +26,9 @@ export interface Apartment {
   ownerId?: number;
   status: 'PENDING' | 'APPROVED';
   autoConfirm: boolean;
+  pricingStrategy: 'PER_GUEST' | 'PER_UNIT';
+  cancellationDeadline: number;
+  specialPrices: SpecialPrice[];
+  availability: AvailabilityInterval[];
+
 }

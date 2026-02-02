@@ -1,0 +1,26 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button (click)="changeMonth(-1)">Prethodni</button>
+    <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
+    <button (click)="changeMonth(1)">Sledeći</button>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="calendar-day"
+         *ngFor="let date of datesInMonth"
+         [class.selected]="isSelected(date)"
+         [class.reserved]="isReserved(date)"
+         [class.pricing-mode]="mode === 'pricing' && isSelected(date)"
+         (click)="toggleDateSelection(date)">
+
+      <span class="date">{{ date.getDate() }}</span>
+
+      <div class="price-tag">
+        <small class="price">{{ getPriceForDate(date) | currency:'EUR':'symbol':'1.0-0' }}</small>
+        <small class="smaller-text">
+          {{ apartment.pricingStrategy === 'PER_GUEST' ? '/ po gostu' : '/ po jedinici' }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

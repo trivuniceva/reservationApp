@@ -1,0 +1,81 @@
+<div class="mgmt-container">
+  <aside class="sidebar">
+    <button [class.active]="view === 'availability'" (click)="view = 'availability'">
+      📅 Dostupnost
+    </button>
+    <button [class.active]="view === 'pricing'" (click)="view = 'pricing'">
+      💰 Posebne Cene
+    </button>
+    <button [class.active]="view === 'settings'" (click)="view = 'settings'">
+      ⚙️ Opšta Pravila
+    </button>
+  </aside>
+
+  <main class="content">
+
+    <div *ngIf="view === 'availability'">
+      <div class="view-header">
+        <h2>Dostupnost smeštaja</h2>
+        <p>Označite dane na kalendaru da biste ih postavili kao (ne)dostupne.</p>
+      </div>
+      <app-host-calendar
+        [apartment]="property"
+        [reservedDates]="reservedDates"
+        mode="availability">
+      </app-host-calendar>
+    </div>
+
+    <div *ngIf="view === 'pricing'" class="pricing-layout">
+      <div class="form-side">
+        <h3>Postavi posebnu cenu</h3>
+
+        <div class="input-group">
+          <label>Cena (€)</label>
+          <input type="number" [(ngModel)]="pricingForm.price" placeholder="Unesite iznos">
+        </div>
+
+        <div class="input-group">
+          <label>Način obračuna za smeštaj</label>
+          <select [(ngModel)]="property.pricingStrategy">
+            <option value="PER_GUEST">Po osobi / gostu</option>
+            <option value="PER_UNIT">Po celoj jedinici (apartmanu)</option>
+          </select>
+        </div>
+
+        <div class="selection-box" [class.has-selection]="selectedDatesFromCalendar.length > 0">
+          <p *ngIf="selectedDatesFromCalendar.length === 0">
+            Kliknite na dane u kalendaru da biste im promenili cenu.
+          </p>
+          <p *ngIf="selectedDatesFromCalendar.length > 0">
+            Selektovano dana: <strong>{{selectedDatesFromCalendar.length}}</strong>
+          </p>
+        </div>
+
+        <button class="save-price-btn"
+                [disabled]="selectedDatesFromCalendar.length === 0"
+                (click)="saveNewPrice()">
+          Primeni cenu
+        </button>
+      </div>
+
+      <div class="calendar-side">
+        <app-host-calendar
+          [apartment]="property"
+          [reservedDates]="reservedDates"
+          mode="pricing"
+          (selectionChanged)="onDatesSelected($event)">
+        </app-host-calendar>
+      </div>
+    </div>
+
+    <div *ngIf="view === 'settings'" class="settings-view">
+      <h3>Pravila rezervacije</h3>
+      <div class="input-group">
+        <label>Otkazni rok (broj dana pre dolaska)</label>
+        <input type="number" [(ngModel)]="property.cancellationDeadline">
+      </div>
+      <p><small>Napomena: Način obračuna cene se sada podešava u sekciji "Posebne Cene".</small></p>
+    </div>
+
+  </main>
+</div>

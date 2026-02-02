@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {Apartment} from "../../../core/model/apartment.model";
 import {AuthService} from "../../../core/service/auth/auth.service";
@@ -9,6 +9,9 @@ import {MapSectionComponent} from "../apartment-view-components/map-section/map-
 import {ApartmentImagesComponent} from "../apartment-view-components/apartment-images/apartment-images.component";
 import {FormsModule} from "@angular/forms";
 import {PropertiesService} from "../../../core/service/properties/properties.service";
+import {
+  PropertyManagementComponent
+} from "../apartment-view-components/property-management/property-management.component";
 
 @Component({
   selector: 'app-property-details',
@@ -21,6 +24,7 @@ import {PropertiesService} from "../../../core/service/properties/properties.ser
     ApartmentInfoComponent,
     ApartmentImagesComponent,
     ApartmentDetailsComponent,
+    PropertyManagementComponent,
   ],
   templateUrl: './property-details.component.html',
   styleUrl: './property-details.component.scss'
@@ -30,10 +34,15 @@ export class PropertyDetailsComponent {
   @Output() close = new EventEmitter<void>();
   @Output() updated = new EventEmitter<void>();
 
+  @ViewChild(PropertyManagementComponent) managementComp!: PropertyManagementComponent;
+
   userRole: string = '';
   isEditMode: boolean = false;
   editableProperty!: Apartment;
   newImageUrl: string = '';
+
+  showManagement: boolean = false;
+  toggleManagement() { this.showManagement = !this.showManagement; }
 
   constructor(
     private authService: AuthService,
@@ -83,14 +92,17 @@ export class PropertyDetailsComponent {
   }
 
   saveChanges() {
-    this.propertiesService.updateProperty(this.editableProperty.id, this.editableProperty).subscribe({
-      next: () => {
-        this.isEditMode = false;
-        this.updated.emit();
-        this.property = { ...this.editableProperty };
-      },
-      error: (err) => console.error("Greška pri čuvanju:", err)
-    });
+    if (this.showManagement) {
+      this.managementComp.saveNewPrice();
+    } else {
+      this.propertiesService.updateProperty(this.editableProperty.id, this.editableProperty).subscribe({
+        next: () => {
+          this.isEditMode = false;
+          this.updated.emit();
+          alert("Promene sačuvane!");
+        }
+      });
+    }
   }
 
 }
