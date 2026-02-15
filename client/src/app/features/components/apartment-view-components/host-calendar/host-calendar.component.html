@@ -10,7 +10,8 @@
          *ngFor="let date of datesInMonth"
          [class.selected]="isSelected(date)"
          [class.reserved]="isReserved(date)"
-         [class.pricing-mode]="mode === 'pricing' && isSelected(date)"
+         [class.unavailable]="isUnavailable(date)"
+         [class.pricing-mode]="mode === 'pricing' && isPricingSelected(date)"
          (click)="toggleDateSelection(date)">
 
       <span class="date">{{ date.getDate() }}</span>
@@ -18,7 +19,7 @@
       <div class="price-tag">
         <small class="price">{{ getPriceForDate(date) | currency:'EUR':'symbol':'1.0-0' }}</small>
         <small class="smaller-text">
-          {{ apartment.pricingStrategy === 'PER_GUEST' ? '/ po gostu' : '/ po jedinici' }}
+          {{ apartment.pricingStrategy === 'PER_GUEST' ? '/ po osobi' : '/ po jedinici' }}
         </small>
       </div>
     </div>

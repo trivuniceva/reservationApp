@@ -26,7 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/api/properties/**").permitAll()
                         .requestMatchers("/notifications/**").permitAll()
-
+                        .requestMatchers("/special-prices/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

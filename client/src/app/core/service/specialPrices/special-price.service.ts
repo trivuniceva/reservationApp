@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AvailabilityInterval, SpecialPrice} from "../../model/apartment.model";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -24,4 +24,17 @@ export class SpecialPriceService {
     return this.http.get<string[]>(`${this.API_URL}/reserved/${apartmentId}`);
   }
 
+  addSpecialPricesBulk(apartmentId: number, rules: SpecialPrice[]): Observable<any> {
+    return this.http.post(`${this.API_URL}/pricing/${apartmentId}/bulk`, rules);
+  }
+
+  getReservedDatesByApartmentId(apartmentId: number): Observable<Date[]> {
+    return this.http.get<string[]>(`${this.API_URL}/special-prices/reserved/${apartmentId}`).pipe(
+      map(dateStrings => dateStrings.map(d => {
+        const date = new Date(d);
+        date.setHours(12, 0, 0, 0);
+        return date;
+      }))
+    );
+  }
 }

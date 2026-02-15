@@ -13,16 +13,25 @@
 
   <main class="content">
 
-    <div *ngIf="view === 'availability'">
-      <div class="view-header">
-        <h2>Dostupnost smeštaja</h2>
-        <p>Označite dane na kalendaru da biste ih postavili kao (ne)dostupne.</p>
+    <div *ngIf="view === 'availability'" class="pricing-layout">
+      <div class="form-side">
+        <h3>Upravljanje dostupnošću</h3>
+        <p>Kliknite na dane da biste ih otvorili ili zatvorili za rezervacije.</p>
+        <p><strong>Napomena:</strong> Promene se čuvaju automatski čim kliknete na datum.</p>
+
+        <div class="status-legend">
+          <div class="legend-item"><span class="box reserved"></span> Rezervisano (nije moguće menjati)</div>
+          <div class="legend-item"><span class="box unavailable"></span> Nedostupno (zatvoreno)</div>
+        </div>
       </div>
-      <app-host-calendar
-        [apartment]="property"
-        [reservedDates]="reservedDates"
-        mode="availability">
-      </app-host-calendar>
+
+      <div class="calendar-side">
+        <app-host-calendar
+          [apartment]="property"
+          [userRole]="'HOST'"
+          mode="availability">
+        </app-host-calendar>
+      </div>
     </div>
 
     <div *ngIf="view === 'pricing'" class="pricing-layout">
@@ -61,9 +70,9 @@
       <div class="calendar-side">
         <app-host-calendar
           [apartment]="property"
-          [reservedDates]="reservedDates"
+          [userRole]="'HOST'"
           mode="pricing"
-          (selectionChanged)="onDatesSelected($event)">
+          (pricingDatesSelected)="onDatesSelected($event)">
         </app-host-calendar>
       </div>
     </div>
@@ -74,7 +83,7 @@
         <label>Otkazni rok (broj dana pre dolaska)</label>
         <input type="number" [(ngModel)]="property.cancellationDeadline">
       </div>
-      <p><small>Napomena: Način obračuna cene se sada podešava u sekciji "Posebne Cene".</small></p>
+      <button class="save-price-btn" (click)="saveGeneralSettings()">Sačuvaj pravila</button>
     </div>
 
   </main>

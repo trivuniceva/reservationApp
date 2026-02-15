@@ -37,15 +37,22 @@
   }
 }
 
-// TVOJ KALENDAR STIL
 .calendar-container {
   width: 100%;
+
   .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    span { font-size: 18px; font-weight: bold; color: #707070; }
+
+    span {
+      font-size: 18px;
+      font-weight: bold;
+      color: #707070;
+      text-transform: capitalize;
+    }
+
     button {
       background-color: #707070;
       color: #fff;
@@ -53,6 +60,7 @@
       padding: 8px 16px;
       border-radius: 5px;
       cursor: pointer;
+      &:hover { background-color: #505050; }
     }
   }
 
@@ -65,28 +73,55 @@
   }
 
   .calendar-day {
-    min-height: 90px;
+    min-height: 95px;
     padding: 10px;
     border: 0.5px solid #eee;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+    background: white;
 
     .date { font-size: 18px; font-weight: bold; }
     .price-tag { text-align: center; margin-top: 5px; }
     .price { font-size: 12px; color: #888; }
     .smaller-text { font-size: 10px; display: block; color: #aaa; }
 
-    &.selected { background-color: #dimgray; color: white; .price, .smaller-text { color: white; } }
-    &.pricing-mode.selected { background-color: #015E61; }
+    &:hover:not(.reserved):not(.is-guest) {
+      background-color: #f7f7f7;
+    }
+
+    &.selected {
+      background-color: #696969 !important;
+      color: white;
+      .price, .smaller-text { color: white; }
+    }
+
+    &.pricing-mode {
+      background-color: #015e61 !important;
+      color: white !important;
+
+      .price, .date { color: white !important; }
+    }
+
+    &.unavailable {
+      background-color: #804846;
+      color: white;
+    }
+
     &.reserved {
-      background-color: #B80C09;
-      opacity: 0.6;
+      background-color: #b80c09;
       color: white;
       cursor: not-allowed;
-      pointer-events: none;
+      pointer-events: none; // niko ne moze da klikne na rezervisano
+    }
+
+    &.is-guest {
+      &.unavailable, &.reserved {
+        pointer-events: none;
+        opacity: 0.8;
+      }
     }
   }
 }

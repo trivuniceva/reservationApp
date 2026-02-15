@@ -38,4 +38,10 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Property> updateProperty(@PathVariable Long id, @RequestBody Property updatedProperty) {
+        Property property = propertyService.updateProperty(id, updatedProperty);
+        return ResponseEntity.ok(property);
+    }
+
 }
