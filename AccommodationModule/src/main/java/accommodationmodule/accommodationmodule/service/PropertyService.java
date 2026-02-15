@@ -91,4 +91,9 @@ public class PropertyService {
         property.setApproved(true);
         return propertyRepository.save(property);
     }
+
+    public List<Property> getAllProperties() {
+        return propertyRepository.findByApprovedTrue();
+    }
+
 }

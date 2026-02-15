@@ -44,4 +44,9 @@ public class PropertyController {
         return ResponseEntity.ok(property);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Property>> getAllProperties() {
+        List<Property> properties = propertyService.getAllProperties();
+        return ResponseEntity.ok(properties);
+    }
 }
