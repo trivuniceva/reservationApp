@@ -31,7 +31,13 @@ export class PropertiesPageComponent implements OnInit {
 
   loadMyProperties(): void {
     const user = this.authService.getUserInfo();
-    if (user && user.id) {
+
+    if (!user) {
+      this.isLoading = false;
+      return;
+    }
+
+    if (user.role === 'HOST') {
       this.propertiesService.getPropertiesByOwner(user.id).subscribe({
         next: (data) => {
           this.userProperties = data;
@@ -39,6 +45,16 @@ export class PropertiesPageComponent implements OnInit {
         },
         error: () => this.isLoading = false
       });
+    } else if (user.role === 'GUEST') {
+      this.propertiesService.getAllProperties().subscribe({
+        next: (data) => {
+          this.userProperties = data;
+          this.isLoading = false;
+        },
+        error: () => this.isLoading = false
+      });
+    } else {
+      this.isLoading = false;
     }
   }
 

@@ -16,12 +16,18 @@
     <div class="profile-cards-holder">
 
       <ng-container *ngIf="activeTab === 'Reservation'">
+        <div style="height: 26px"></div>
+        <app-guest-reservations [mode]="'ACTIVE'"></app-guest-reservations>
       </ng-container>
 
       <ng-container *ngIf="activeTab === 'Make Reservation'">
+        <div style="height: 26px"></div>
+        <app-properties-page></app-properties-page>
       </ng-container>
 
       <ng-container *ngIf="activeTab === 'History'">
+        <div style="height: 26px"></div>
+        <app-guest-reservations [mode]="'HISTORY'"></app-guest-reservations>
       </ng-container>
 
 
@@ -37,6 +43,7 @@
 
       <ng-container *ngIf="activeTab === 'Bookings'">
         <div style="height: 26px"></div>
+        <app-reservations-requests></app-reservations-requests>
       </ng-container>
 
       <ng-container *ngIf="activeTab === 'Income'">

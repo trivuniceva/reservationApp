@@ -1,0 +1,57 @@
+<div class="res-container">
+  <div class="section-header">
+    <h2>{{ mode === 'ACTIVE' ? 'Active Reservations' : 'Reservation History' }}</h2>
+    <p class="subtitle">Review and manage your accommodation bookings</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">Loading data...</div>
+
+  <div *ngIf="!isLoading && filteredReservations.length === 0" class="no-data-card">
+    <p>No reservations found in this category.</p>
+  </div>
+
+  <div class="res-grid">
+    <div class="res-card" *ngFor="let res of filteredReservations">
+      <div class="status-bar" [attr.data-status]="res.status"></div>
+
+      <div class="res-content">
+        <div class="top-row">
+          <div class="property-info">
+            <span class="property-label">Accommodation</span>
+            <h3 class="property-name">{{ res.property.name }}</h3>
+          </div>
+          <div class="status-wrapper">
+            <span class="status-tag" [attr.data-status]="res.status">
+              {{ res.status }}
+            </span>
+          </div>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Check-in / Check-out</span>
+            <span class="detail-value">{{ res.startDate | date:'mediumDate' }} - {{ res.endDate | date:'mediumDate' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Guests</span>
+            <span class="detail-value">{{ res.numberOfGuests }} persons</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Total Amount</span>
+            <span class="detail-value price">{{ res.totalPrice | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+
+        <div class="action-footer" *ngIf="mode === 'ACTIVE'">
+          <button *ngIf="res.status === 'PENDING'" class="btn-text-only" (click)="deleteRequest(res.id)">
+            Withdraw Request
+          </button>
+
+          <button *ngIf="res.status === 'ACCEPTED'" class="btn-danger-minimal" (click)="cancelReservation(res.id)">
+            Cancel Booking
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

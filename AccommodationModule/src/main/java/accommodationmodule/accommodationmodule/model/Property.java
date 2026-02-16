@@ -23,6 +23,18 @@ public class Property {
     private boolean approved = false;
     private Long ownerId;
 
+    private int cancellationDeadline;
+    private String pricingStrategy; // PER_GUEST ili PER_UNIT
+    private boolean autoConfirm = false;
+
+    @ElementCollection
+    @CollectionTable(name = "property_availability", joinColumns = @JoinColumn(name = "property_id"))
+    private List<DateRange> availability;
+
+    @ElementCollection
+    @CollectionTable(name = "property_special_prices", joinColumns = @JoinColumn(name = "property_id"))
+    private List<SpecialPriceRule> specialPrices;
+
     @ElementCollection
     @CollectionTable(
             name = "property_amenities",

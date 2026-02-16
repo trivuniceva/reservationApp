@@ -7,6 +7,12 @@ import {TabsComponent} from "../../../shared/ui/tabs/tabs.component";
 import {EditProfileComponent} from "../../components/edit-profile/edit-profile.component";
 import {PropertiesPageComponent} from "../properties/properties-page/properties-page.component";
 import {CreateApartmentPageComponent} from "../properties/create-apartment-page/create-apartment-page.component";
+import {
+  ReservationsRequestsComponent
+} from "../../components/reservations/reservations-requests/reservations-requests.component";
+import {
+  GuestReservationsComponent
+} from "../../components/reservations/guest-reservations/guest-reservations.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -18,8 +24,9 @@ import {CreateApartmentPageComponent} from "../properties/create-apartment-page/
     EditProfileComponent,
     EntityHeaderComponent,
     PropertiesPageComponent,
+    GuestReservationsComponent,
     CreateApartmentPageComponent,
-
+    ReservationsRequestsComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'

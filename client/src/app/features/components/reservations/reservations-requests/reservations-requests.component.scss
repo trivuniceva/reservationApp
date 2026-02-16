@@ -1,0 +1,106 @@
+.requests-container {
+  padding: 10px;
+
+  .section-header {
+    margin-bottom: 24px;
+    h2 { font-size: 1.5rem; color: #1a1a1a; margin-bottom: 4px; }
+    .subtitle { color: #666; font-size: 0.9rem; }
+  }
+}
+
+.req-card {
+  background: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s ease;
+
+  &:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+}
+
+.status-bar {
+  width: 6px;
+  &[data-status="ACCEPTED"] { background: #015E61; }
+  &[data-status="PENDING"] { background: #f39c12; }
+  &[data-status="REJECTED"], &[data-status="CANCELLED"] { background: #e74c3c; }
+}
+
+.req-content {
+  flex: 1;
+  padding: 20px;
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .label-caps { font-size: 0.7rem; text-transform: uppercase; color: #999; letter-spacing: 0.8px; font-weight: 700; }
+  .property-name { font-size: 1.2rem; color: #333; margin-top: 2px; }
+}
+
+.status-tag {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #f5f5f5;
+  color: #666;
+
+  &[data-status="ACCEPTED"] { background: #e6f4f1; color: #015E61; }
+  &[data-status="PENDING"] { background: #fef5e7; color: #f39c12; }
+  &[data-status="REJECTED"] { background: #fdeaea; color: #e74c3c; }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f5f5f5;
+
+  .detail-label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+  .detail-value { display: block; font-weight: 500; color: #444; font-size: 0.9rem; }
+  .price { color: #015E61; font-weight: 700; }
+}
+
+.guest-insight {
+  padding: 12px 0;
+  .insight-label { font-size: 0.7rem; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+  .insight-content {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+    .guest-id { color: #666; }
+    .cancellation-score {
+      font-weight: 600;
+      color: #27ae60;
+      &.danger { color: #e74c3c; }
+    }
+  }
+}
+
+.action-footer {
+  padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary { background: #015E61; color: white; border: none; &:hover { background: #013f41; } }
+  .btn-secondary { background: #fff; border: 1px solid #ddd; color: #444; &:hover { background: #f9f9f9; } }
+  .btn-danger-minimal { background: #fff; border: 1px solid #e74c3c; color: #e74c3c; &:hover { background: #e74c3c; color: #fff; } }
+}

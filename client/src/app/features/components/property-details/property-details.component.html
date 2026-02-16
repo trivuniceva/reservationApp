@@ -2,24 +2,125 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="onClose()">&times;</button>
 
-    <div class="modal-body">
-      <div class="modal-gallery">
-        <img *ngFor="let img of property.images" [src]="img" alt="Gallery">
+    <div class="modal-nav" *ngIf="userRole === 'HOST' && !showReservationFlow">
+      <button [class.active]="!showManagement" (click)="showManagement = false">Pregled i Edit</button>
+      <button [class.active]="showManagement" (click)="showManagement = true">Cene i Dostupnost</button>
+    </div>
+
+    <div class="scrollable-content">
+      <div *ngIf="showReservationFlow" class="reservation-flow-container">
+        <div class="dialog-content">
+          <div class="user-info">
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+            <hr>
+            <div class="guest-selection">
+              <label>Number of Guests:</label>
+              <div class="guest-input-container">
+                <button (click)="decreaseGuests()" class="guest-btn">-</button>
+                <input type="number" [(ngModel)]="numGuests" readonly />
+                <button (click)="increaseGuests()" class="guest-btn">+</button>
+              </div>
+            </div>
+            <hr>
+            <p><strong>Selected days:</strong> {{ selectedReservationDates.length }}</p>
+            <p class="total-price"><strong>Full Price: {{ fullPrice }} €</strong></p>
+
+            <div class="reservation-flow-actions">
+              <button class="confirm-res-btn" (click)="confirmReservation()">Reserve Now</button>
+              <button class="cancel-res-btn" (click)="cancelReservationFlow()">Back to Details</button>
+            </div>
+          </div>
+
+          <div class="calendar-section">
+            <h2>Select Reservation Dates</h2>
+            <app-host-calendar
+              [apartment]="property"
+              [userRole]="'GUEST'"
+              mode="pricing"
+              (pricingDatesSelected)="onDatesSelected($event)">
+            </app-host-calendar>
+          </div>
+        </div>
       </div>
 
-      <div class="modal-details">
-        <h1>{{ property.name }}</h1>
-        <p class="modal-location">📍 {{ property.location }}</p>
-        <hr>
-        <p class="modal-description">{{ property.description }}</p>
-        <div class="modal-amenities">
-          <span class="tag" *ngFor="let a of property.amenities">{{ a }}</span>
+      <ng-container *ngIf="!showReservationFlow">
+        <div class="container" *ngIf="showManagement">
+          <app-property-management [property]="editableProperty"></app-property-management>
         </div>
-        <div class="modal-footer">
-          <span class="modal-price">{{ property.price }}€ / night</span>
-          <button class="btn-action">Edit Property</button>
+
+        <div class="container" [class.editing]="isEditMode" *ngIf="!showManagement">
+          <div class="left-section">
+            <app-apartment-images [images]="editableProperty.images" [isEditMode]="isEditMode" (imagesChanged)="editableProperty.images = $event"></app-apartment-images>
+          </div>
+          <div class="middle-section">
+            <div *ngIf="!isEditMode">
+              <app-apartment-info [property]="editableProperty"></app-apartment-info>
+              <app-apartment-details [description]="editableProperty.description"></app-apartment-details>
+            </div>
+            <div *ngIf="isEditMode" class="edit-group">
+              <label>Naziv smeštaja</label>
+              <input type="text" [(ngModel)]="editableProperty.name">
+              <label>Lokacija</label>
+              <input type="text" [(ngModel)]="editableProperty.location">
+              <div class="price-config-row">
+                <div style="flex: 1;">
+                  <label>Cena po noćenju (€)</label>
+                  <input type="number" [(ngModel)]="editableProperty.price">
+                </div>
+                <div style="flex: 1;">
+                  <label>Način obračuna</label>
+                  <select [(ngModel)]="editableProperty.pricingStrategy">
+                    <option value="PER_GUEST">Po gostu</option>
+                    <option value="PER_UNIT">Po jedinici</option>
+                  </select>
+                </div>
+              </div>
+              <div class="guest-config">
+                <div class="input-box"><label>Min gostiju</label><input type="number" [(ngModel)]="editableProperty.minGuests"></div>
+                <div class="input-box"><label>Max gostiju</label><input type="number" [(ngModel)]="editableProperty.maxGuests"></div>
+              </div>
+              <div class="reservation-mode">
+                <label>Potvrda</label>
+                <select [(ngModel)]="editableProperty.autoConfirm">
+                  <option [ngValue]="true">Instant</option>
+                  <option [ngValue]="false">Ručno</option>
+                </select>
+              </div>
+              <label>Opis</label>
+              <textarea [(ngModel)]="editableProperty.description" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="map-container"><app-map-section [apartment]="editableProperty"></app-map-section></div>
+            <div *ngIf="!isEditMode"><app-amenities-info [amenities]="editableProperty.amenities"></app-amenities-info></div>
+            <div *ngIf="isEditMode" class="amenities-edit">
+              <h3>Pogodnosti</h3>
+              <div class="checkbox-grid">
+                <label *ngFor="let am of ['WiFi', 'TV', 'Kuhinja', 'Parking', 'Klima', 'Bazen', 'Ljubimci']" class="check-container">
+                  <input type="checkbox" [checked]="editableProperty.amenities.includes(am)" (change)="toggleAmenity(am)"> {{ am }}
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </ng-container>
+    </div>
+
+    <div class="action-footer" *ngIf="!showReservationFlow">
+      <button *ngIf="userRole === 'GUEST'" class="reserve-button" (click)="reserve()">Reserve</button>
+      <ng-container *ngIf="userRole === 'HOST' || userRole === 'ADMIN'">
+        <ng-container *ngIf="!showManagement">
+          <button *ngIf="!isEditMode" class="reserve-button" (click)="toggleEdit()">Edit Property</button>
+          <div *ngIf="isEditMode" class="edit-actions">
+            <button class="btn-cancel" (click)="toggleEdit()">Odustani</button>
+            <button class="btn-save" (click)="saveChanges()">Sačuvaj promene</button>
+          </div>
+        </ng-container>
+        <button *ngIf="showManagement" class="reserve-button" (click)="saveChanges()">Sačuvaj podešavanja</button>
+      </ng-container>
     </div>
   </div>
 </div>
