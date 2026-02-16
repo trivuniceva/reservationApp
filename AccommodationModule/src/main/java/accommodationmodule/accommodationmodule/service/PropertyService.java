@@ -46,12 +46,16 @@ public class PropertyService {
         existingProperty.setMaxGuests(updatedProperty.getMaxGuests());
         existingProperty.setAmenities(updatedProperty.getAmenities());
         existingProperty.setImages(updatedProperty.getImages());
-
         existingProperty.setCancellationDeadline(updatedProperty.getCancellationDeadline());
         existingProperty.setPricingStrategy(updatedProperty.getPricingStrategy());
+        existingProperty.setAutoConfirm(updatedProperty.isAutoConfirm());
 
         existingProperty.setApproved(false);
-        return propertyRepository.save(existingProperty);
+
+        Property saved = propertyRepository.save(existingProperty);
+        eventPublisher.publishEvent(new PropertyCreatedEvent(saved.getId(), saved.getName()));
+
+        return saved;
     }
 
     @Transactional

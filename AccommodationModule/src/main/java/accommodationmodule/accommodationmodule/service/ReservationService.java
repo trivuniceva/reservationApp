@@ -35,6 +35,8 @@ public class ReservationService {
             }
         }
 
+        System.out.println("rezervacija");
+        System.out.println(p.isAutoConfirm());
         if (p.isAutoConfirm()) {
             res.setStatus(ReservationStatus.ACCEPTED);
             reservationRepository.save(res);

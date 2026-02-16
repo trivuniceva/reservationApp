@@ -17,11 +17,11 @@ public class NotificationListener {
     public void handlePropertyCreated(PropertyCreatedEvent event) {
         Notification notification = new Notification();
         notification.setRecipientRole("ADMIN");
-        notification.setMessage("Novi smeštaj '" + event.getPropertyName() + "' zahteva vašu proveru.");
+
+        notification.setMessage("Smeštaj '" + event.getPropertyName() + "' (ID: " + event.getPropertyId() + ") čeka na odobrenje.");
         notification.setRelatedPropertyId(event.getPropertyId());
 
         notificationRepository.save(notification);
-
     }
 
 }
