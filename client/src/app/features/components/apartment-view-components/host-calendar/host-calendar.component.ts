@@ -34,14 +34,13 @@ export class HostCalendarComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['mode']) {
-      // Kada se promeni tab, čistimo samo selekciju za cene da ne ostane "duh" prethodnog klika
       this.selectedPricingDates = [];
       this.pricingDatesSelected.emit([]);
     }
   }
 
   loadInitialData() {
-    if (this.apartment?.id) {
+    if (this.apartment && this.apartment.id) {
       this.loadReservedDates();
       this.loadUnavailableDates();
     }
@@ -62,6 +61,11 @@ export class HostCalendarComponent implements OnInit, OnChanges {
     this.generateCalendar();
   }
 
+  public refreshCalendar() {
+    this.loadReservedDates();
+    this.loadUnavailableDates();
+  }
+
   loadReservedDates() {
     this.specialPriceService.getReservedDatesByApartmentId(this.apartment.id!).subscribe(data => {
       this.reservedDates = data.map((d: any) => {
@@ -69,6 +73,7 @@ export class HostCalendarComponent implements OnInit, OnChanges {
         date.setHours(12, 0, 0, 0);
         return date;
       });
+      this.generateCalendar();
     });
   }
 
@@ -90,6 +95,8 @@ export class HostCalendarComponent implements OnInit, OnChanges {
 
   toggleDateSelection(date: Date) {
     if (this.isReserved(date)) return;
+
+    if (this.userRole === 'GUEST' && this.isUnavailable(date)) return;
 
     const normalizedDate = new Date(date);
     normalizedDate.setHours(12, 0, 0, 0);
@@ -153,14 +160,12 @@ export class HostCalendarComponent implements OnInit, OnChanges {
       d1.getDate() === d2.getDate();
   }
 
-  isReserved = (date: Date) => this.reservedDates.some(d => this.isSameDay(d, date));
-  isUnavailable = (date: Date) => this.unavailableDates.some(d => this.isSameDay(d, date));
-  isPricingSelected = (date: Date) => this.selectedPricingDates.some(d => this.isSameDay(d, date));
+  isReserved = (date: Date): boolean => this.reservedDates.some(rd => this.isSameDay(rd, date));
+  isUnavailable = (date: Date): boolean => this.unavailableDates.some(d => this.isSameDay(d, date)) && !this.isReserved(date);
+  isPricingSelected = (date: Date): boolean => this.selectedPricingDates.some(d => this.isSameDay(d, date));
 
   isSelected(date: Date): boolean {
-    // U availability modu selektovano je ono što je u bazi kao nedostupno
     if (this.mode === 'availability') return this.isUnavailable(date);
-    // U pricing modu selektovano je samo ono što je trenutno kliknuto na kartici
     if (this.mode === 'pricing') return this.isPricingSelected(date);
     return false;
   }

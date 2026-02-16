@@ -12,6 +12,7 @@
          [class.reserved]="isReserved(date)"
          [class.unavailable]="isUnavailable(date)"
          [class.pricing-mode]="mode === 'pricing' && isPricingSelected(date)"
+         [class.disabled-click]="(userRole === 'GUEST' && isUnavailable(date)) || isReserved(date)"
          (click)="toggleDateSelection(date)">
 
       <span class="date">{{ date.getDate() }}</span>
@@ -22,6 +23,7 @@
           {{ apartment.pricingStrategy === 'PER_GUEST' ? '/ po osobi' : '/ po jedinici' }}
         </small>
       </div>
+      <div *ngIf="isReserved(date)" class="reserved-text">RESERVED</div>
     </div>
   </div>
 </div>

@@ -2,148 +2,201 @@
   display: flex;
   height: 100%;
   background: #fdfdfd;
+}
 
-  .sidebar {
-    width: 240px;
-    background: #fff;
-    border-right: 1px solid #eee;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
+.mgmt-container .sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
 
-    button {
-      padding: 15px 25px;
-      border: none;
-      background: none;
-      text-align: left;
-      font-size: 1rem;
-      color: #717171;
-      cursor: pointer;
-      border-left: 4px solid transparent;
+.mgmt-container .sidebar button {
+  padding: 15px 25px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #717171;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
 
-      &.active {
-        background: #fff1f3;
-        color: #ff385c;
-        border-left-color: #ff385c;
-        font-weight: bold;
-      }
-    }
-  }
+.mgmt-container .sidebar button.active {
+  background: #fff1f3;
+  color: #ff385c;
+  border-left-color: #ff385c;
+  font-weight: bold;
+}
 
-  .content {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-  }
+.mgmt-container .content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
 }
 
 .calendar-container {
   width: 100%;
-
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-
-    span {
-      font-size: 18px;
-      font-weight: bold;
-      color: #707070;
-      text-transform: capitalize;
-    }
-
-    button {
-      background-color: #707070;
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      &:hover { background-color: #505050; }
-    }
-  }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .calendar-day {
-    min-height: 95px;
-    padding: 10px;
-    border: 0.5px solid #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background: white;
-
-    .date { font-size: 18px; font-weight: bold; }
-    .price-tag { text-align: center; margin-top: 5px; }
-    .price { font-size: 12px; color: #888; }
-    .smaller-text { font-size: 10px; display: block; color: #aaa; }
-
-    &:hover:not(.reserved):not(.is-guest) {
-      background-color: #f7f7f7;
-    }
-
-    &.selected {
-      background-color: #696969 !important;
-      color: white;
-      .price, .smaller-text { color: white; }
-    }
-
-    &.pricing-mode {
-      background-color: #015e61 !important;
-      color: white !important;
-
-      .price, .date { color: white !important; }
-    }
-
-    &.unavailable {
-      background-color: #804846;
-      color: white;
-    }
-
-    &.reserved {
-      background-color: #b80c09;
-      color: white;
-      cursor: not-allowed;
-      pointer-events: none; // niko ne moze da klikne na rezervisano
-    }
-
-    &.is-guest {
-      &.unavailable, &.reserved {
-        pointer-events: none;
-        opacity: 0.8;
-      }
-    }
-  }
 }
 
-// FORMA ZA PRICING
+.calendar-container .calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.calendar-container .calendar-header span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #707070;
+  text-transform: capitalize;
+}
+
+.calendar-container .calendar-header button {
+  background-color: #707070;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-container .calendar-header button:hover {
+  background-color: #505050;
+}
+
+.calendar-container .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendar-container .calendar-day {
+  min-height: 95px;
+  padding: 10px;
+  border: 0.5px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.calendar-container .calendar-day .date {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.calendar-container .calendar-day .price-tag {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.calendar-container .calendar-day .price {
+  font-size: 12px;
+  color: #888;
+}
+
+.calendar-container .calendar-day .smaller-text {
+  font-size: 10px;
+  display: block;
+  color: #aaa;
+}
+
+.calendar-container .calendar-day:hover:not(.reserved):not(.is-guest) {
+  background-color: #f7f7f7;
+}
+
+.calendar-container .calendar-day.selected {
+  background-color: #696969 !important;
+  color: white;
+}
+
+.calendar-container .calendar-day.selected .price,
+.calendar-container .calendar-day.selected .smaller-text {
+  color: white;
+}
+
+.calendar-container .calendar-day.pricing-mode {
+  background-color: #015e61 !important;
+  color: white !important;
+}
+
+.calendar-container .calendar-day.pricing-mode .price,
+.calendar-container .calendar-day.pricing-mode .date {
+  color: white !important;
+}
+
+.calendar-container .calendar-day.unavailable {
+  background-color: #804846;
+  color: white;
+}
+
+.calendar-container .calendar-day.reserved {
+  background-color: #b80c09 !important;
+  color: white !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 1 !important;
+}
+
+.calendar-container .calendar-day.is-guest.unavailable,
+.calendar-container .calendar-day.is-guest.reserved {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.calendar-container .calendar-day.disabled-click {
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.calendar-container .calendar-day.disabled-click:hover {
+  background-color: inherit !important;
+}
+
+.calendar-container .calendar-day.unavailable.disabled-click {
+  opacity: 0.7;
+}
+
+.calendar-container .calendar-day.reserved {
+  pointer-events: none;
+}
+
 .pricing-layout {
   display: flex;
   gap: 20px;
-  .form-side {
-    width: 280px;
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+}
 
-    input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-    button {
-      background: #ff385c; color: white; border: none; padding: 12px;
-      border-radius: 8px; font-weight: bold; cursor: pointer;
-    }
-  }
+.pricing-layout .form-side {
+  width: 280px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pricing-layout .form-side input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.pricing-layout .form-side button {
+  background: #ff385c;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
