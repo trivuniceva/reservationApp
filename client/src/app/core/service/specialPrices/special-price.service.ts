@@ -29,7 +29,7 @@ export class SpecialPriceService {
   }
 
   getReservedDatesByApartmentId(apartmentId: number): Observable<Date[]> {
-    return this.http.get<string[]>(`${this.API_URL}/special-prices/reserved/${apartmentId}`).pipe(
+    return this.http.get<string[]>(`${this.API_URL}/reserved/${apartmentId}`).pipe(
       map(dateStrings => dateStrings.map(d => {
         const date = new Date(d);
         date.setHours(12, 0, 0, 0);
@@ -37,4 +37,7 @@ export class SpecialPriceService {
       }))
     );
   }
+
+
+
 }

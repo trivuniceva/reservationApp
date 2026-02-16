@@ -96,4 +96,8 @@ public class PropertyService {
         return propertyRepository.findByApprovedTrue();
     }
 
+    public Property getPropertyById(Long id) {
+        return propertyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Property not found with id: " + id));
+    }
 }

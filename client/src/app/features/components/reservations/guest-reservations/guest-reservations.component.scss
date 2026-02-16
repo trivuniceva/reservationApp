@@ -1,0 +1,96 @@
+.res-container {
+  padding: 10px;
+
+  .section-header {
+    margin-bottom: 24px;
+    h2 { font-size: 1.5rem; color: #1a1a1a; margin-bottom: 4px; }
+    .subtitle { color: #666; font-size: 0.9rem; }
+  }
+}
+
+.res-card {
+  background: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s ease;
+
+  &:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+}
+
+.status-bar {
+  width: 6px;
+  &[data-status="ACCEPTED"] { background: #015E61; }
+  &[data-status="PENDING"] { background: #f39c12; }
+  &[data-status="REJECTED"], &[data-status="CANCELLED"] { background: #e74c3c; }
+}
+
+.res-content {
+  flex: 1;
+  padding: 20px;
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .property-label { font-size: 0.75rem; text-transform: uppercase; color: #999; letter-spacing: 0.5px; }
+  .property-name { font-size: 1.25rem; color: #333; margin-top: 2px; }
+}
+
+.status-tag {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #f5f5f5;
+  color: #666;
+
+  &[data-status="ACCEPTED"] { background: #e6f4f1; color: #015E61; }
+  &[data-status="PENDING"] { background: #fef5e7; color: #f39c12; }
+  &[data-status="CANCELLED"] { background: #fdeaea; color: #e74c3c; }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f5f5f5;
+
+  .detail-label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 4px; }
+  .detail-value { display: block; font-weight: 500; color: #444; }
+  .price { color: #015E61; font-weight: 700; }
+}
+
+.action-footer {
+  padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+
+  button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-text-only {
+    background: none; border: 1px solid #ddd; color: #666;
+    &:hover { background: #f5f5f5; border-color: #ccc; }
+  }
+
+  .btn-danger-minimal {
+    background: #fff; border: 1px solid #e74c3c; color: #e74c3c;
+    &:hover { background: #e74c3c; color: #fff; }
+  }
+}

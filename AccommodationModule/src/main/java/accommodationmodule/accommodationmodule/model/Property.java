@@ -25,6 +25,7 @@ public class Property {
 
     private int cancellationDeadline;
     private String pricingStrategy; // PER_GUEST ili PER_UNIT
+    private boolean autoConfirm = false;
 
     @ElementCollection
     @CollectionTable(name = "property_availability", joinColumns = @JoinColumn(name = "property_id"))

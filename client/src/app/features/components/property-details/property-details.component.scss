@@ -422,3 +422,102 @@
     }
   }
 }
+
+.reservation-form {
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.reservation-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reservation-flow-container {
+  padding: 40px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.dialog-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.user-info, .calendar-section {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.user-info { flex: 1; }
+.calendar-section { flex: 2; }
+
+.guest-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  label { font-weight: bold; margin-bottom: 10px; }
+}
+
+.guest-input-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  input { width: 40px; text-align: center; border: none; font-weight: bold; font-size: 1.2rem; }
+}
+
+.guest-btn {
+  background: #015E61;
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  &:hover { background: #013637; }
+}
+
+.total-price {
+  font-size: 1.4rem;
+  color: #015E61;
+  margin-top: 20px;
+}
+
+.reservation-flow-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.confirm-res-btn {
+  padding: 15px;
+  background: #015E61;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover { background: #013637; }
+}
+
+.cancel-res-btn {
+  padding: 15px;
+  background: #eee;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  &:hover { background: #ddd; }
+}
